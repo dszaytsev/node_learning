@@ -1,36 +1,26 @@
 const fs = require('fs')
 const path = require('path')
+const generateSortFilesStruct = require('./generateSortFilesStruct')
+const sortFilesByLetter = require('./sortFilesByLetter')
+const getArgs = require('./getArgs')
 const readDir = require('./readDir')
+const rmDir = require('./rmDir')
 
-const src = path.join(__dirname, 'src')
-const dest = path.join(__dirname, 'dest')
-fs.mkdir(dest, err => err && console.log(err))
+const {
+  src = path.join(__dirname, 'src'),
+  dest = path.join(__dirname, 'dest'),
+  remove
+} = getArgs()
 
-const files = readDir(src)
-let sortFiles = {}
-
-files.forEach(file => {
-  let fileName = path.basename(file)
-  let firstLetter = fileName[0]
-
-  sortFiles = {
-    ...sortFiles,
-    [firstLetter]: [...(sortFiles[firstLetter] || []), file]
+if (!fs.existsSync(src)) {
+  console.log((`Folder does not exist: ${src}`))
+} else {
+  if (!fs.existsSync(dest)) {
+    fs.mkdir(dest, err => err && console.log(err))
   }
-})
 
-Object.entries(sortFiles).forEach(([letter, files]) => {
-  let dir = path.join(dest, letter)
-  fs.mkdir(dir, err => err && console.log(err))
+  const [files] = readDir(src)
 
-  files.forEach(file => {
-    let fileName = path.basename(file)
-    let filePath = path.join(dir, fileName)
-
-    fs.link(file, filePath, err => {
-      if (err) {
-        console.log('file exists ', file)
-      }
-    })
-  })
-})
+  sortFilesByLetter(dest, generateSortFilesStruct(files))
+  remove && rmDir(src)
+}
