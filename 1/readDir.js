@@ -3,21 +3,25 @@ const fs = require('fs')
 
 module.exports = dir => {
   const files = []
+  const dirs = []
 
-  const readDir = (base, level) => {
+  const readDirFiles = (base, level) => {
     const entities = fs.readdirSync(base)
 
     entities.forEach(entity => {
       const localBase = path.join(base, entity)
       const state = fs.statSync(localBase)
 
-      state.isDirectory()
-        ? readDir(localBase, level + 1)
-        : files.push(localBase)
+      if (state.isDirectory()) {
+        dirs.push(localBase)
+        readDirFiles(localBase, level + 1)
+      } else {
+        files.push(localBase)
+      }
     })
   }
 
-  readDir(dir, 0)
+  readDirFiles(dir, 0)
 
-  return files
+  return [files, dirs]
 }
