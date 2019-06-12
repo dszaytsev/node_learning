@@ -2,6 +2,9 @@
   "extends": "standard",
   "rules": {
     "no-extra-semi": "error",
-    "semi": [2, "never"]
+    "semi": [2, "never"],
+    "prefer-const": "error",
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
+    "space-before-function-paren": ["error", "never"]
   }
 }
