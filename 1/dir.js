@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-module.exports = dir => {
+function readDir(dir) {
   const files = []
   const dirs = []
 
@@ -24,4 +24,18 @@ module.exports = dir => {
   readDirFiles(dir, 0)
 
   return [files, dirs]
+}
+
+exports.read = readDir
+
+exports.rm = dir => {
+  const [files, dirs] = readDir(dir)
+
+  files.forEach(file => {
+    fs.unlink(file, err => err && console.log(err))
+  });
+
+  ([dir, ...dirs]).reverse().forEach(localDir => {
+    fs.rmdir(localDir, err => err && console.log(err))
+  })
 }

@@ -3,8 +3,7 @@ const path = require('path')
 const generateSortFilesStruct = require('./generateSortFilesStruct')
 const sortFilesByLetter = require('./sortFilesByLetter')
 const getArgs = require('./getArgs')
-const readDir = require('./readDir')
-const rmDir = require('./rmDir')
+const dir = require('./dir')
 
 const {
   src = path.join(__dirname, 'src'),
@@ -19,8 +18,8 @@ if (!fs.existsSync(src)) {
     fs.mkdir(dest, err => err && console.log(err))
   }
 
-  const [files] = readDir(src)
+  const [files] = dir.read(src)
 
   sortFilesByLetter(dest, generateSortFilesStruct(files))
-  remove && rmDir(src)
+  remove && dir.rm(src)
 }
