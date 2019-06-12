@@ -1,15 +1,14 @@
 const fs = require('fs')
 const path = require('path')
-const generateSortFilesStruct = require('./generateSortFilesStruct')
-const sortFilesByLetter = require('./sortFilesByLetter')
-const getArgs = require('./getArgs')
+const utils = require('./utils')
+const sort = require('./sort')
 const dir = require('./dir')
 
 const {
   src = path.join(__dirname, 'src'),
   dest = path.join(__dirname, 'dest'),
   remove
-} = getArgs()
+} = utils.getArgs()
 
 if (!fs.existsSync(src)) {
   console.log((`Folder does not exist: ${src}`))
@@ -20,6 +19,7 @@ if (!fs.existsSync(src)) {
 
   const [files] = dir.read(src)
 
-  sortFilesByLetter(dest, generateSortFilesStruct(files))
-  remove && dir.rm(src)
+  sort(dest, files, () => {
+    if (remove) dir.rm(src)
+  })
 }

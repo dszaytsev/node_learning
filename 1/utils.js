@@ -1,6 +1,4 @@
-
-
-module.exports = () => {
+exports.getArgs = () => {
   const [_, __, src, ...args] = process.argv
   const params = { remove: false, src }
 
