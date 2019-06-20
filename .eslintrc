@@ -5,6 +5,9 @@
     "semi": [2, "never"],
     "prefer-const": "error",
     "no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": ["error", {
+      "asyncArrow": "always",
+      "named": "never"
+    }]
   }
 }
