@@ -24,7 +24,11 @@ const {
   try {
     if (!fs.existsSync(dest)) await mkdir(dest)
 
-    await sort(dest, files)
+    const sortPromise = sort(dest, files)
+    // await sort(dest, files)
+    console.log(sortPromise)
+    await sortPromise
+    console.log(sortPromise)
 
     if (remove) await dir.rm(src)
   } catch (err) {
