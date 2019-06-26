@@ -1,0 +1,25 @@
+{
+  "mail": {
+    "subject": "Сообщение с сайта",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "__",
+        "pass": "__"
+      }
+    }
+  },
+  "session": {
+    "secret": "wkcxiyw3ld9t01udlnvjw",
+    "key": "sessionkey",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": 600000
+    },
+    "saveUninitialized": false,
+    "resave": false
+  }
+}
