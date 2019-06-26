@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
+const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development'
 
 global.$ = {
   dev: isDevelopment,
@@ -26,11 +26,11 @@ global.$ = {
       'gulp-replace-task': 'replaceTask'
     }
   })
-};
+}
 
 $.path.task.forEach(function(taskPath) {
-  require(taskPath)();
-});
+  require(taskPath)()
+})
 
 $.gulp.task('default', $.gulp.series(
   'clean',
@@ -47,7 +47,7 @@ $.gulp.task('default', $.gulp.series(
     'watch',
     'serve'
   )
-));
+))
 
 $.gulp.task('build', $.gulp.series(
   'clean',
@@ -60,4 +60,4 @@ $.gulp.task('build', $.gulp.series(
     'copy:font',
     'css:foundation'
   )
-));
+))

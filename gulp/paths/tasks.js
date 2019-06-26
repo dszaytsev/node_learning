@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = [
   './gulp/tasks/sass.js',
@@ -15,4 +15,4 @@ module.exports = [
   './gulp/tasks/copy.fonts.js',
   './gulp/tasks/sprite.png.js',
   './gulp/tasks/sprite.svg.js'
-];
+]
