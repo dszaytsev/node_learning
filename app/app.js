@@ -1,7 +1,8 @@
-const express = require('express')
-const path = require('path')
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const express = require('express')
 const logger = require('morgan')
+const path = require('path')
 
 const app = express()
 
@@ -9,6 +10,20 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.use(logger('dev'))
+
+app.use(
+  session({
+    secret: 'wkcxiyw3ld9t01udlnvjw',
+    key: 'sessionkey',
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 10 * 60 * 1000
+    },
+    saveUninitialized: false,
+    resave: false
+  })
+)
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -29,7 +44,7 @@ app.use((_req, _res, next) => {
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500)
 
-  if (err.status === 404) res.redirect('/404')
+  if (err.status === 404) return res.redirect('/404')
 
   res.render('error', {
     message: err.message,
