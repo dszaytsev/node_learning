@@ -1,21 +1,28 @@
+const formidable = require('formidable')
 const db = require('../services/db')
 
 module.exports.get = (req, res) => {
   res.render('pages/login', { error: req.flash('error')[0] })
 }
 
-module.exports.post = (req, res) => {
-  const { email, password } = req.body
+module.exports.post = (req, res, next) => {
+  const form = new formidable.IncomingForm()
 
-  const userExists = db.user().isEqual({ email, password }).value()
+  form.parse(req, (err, fields) => {
+    if (err) return next(err)
 
-  if (userExists) {
-    req.session.isAdmin = true
-    return res.redirect('/admin')
-  }
+    const { email, password } = fields
 
-  if (!email || !password) req.flash('error', 'Все поля обязательны для заполнения')
-  else req.flash('error', 'Введен неверный логин или пароль')
+    const userExists = db.user().isEqual({ email, password }).value()
 
-  res.redirect('/login')
+    if (userExists) {
+      req.session.isAdmin = true
+      return res.redirect('/admin')
+    }
+
+    if (!email || !password) req.flash('error', 'Все поля обязательны для заполнения')
+    else req.flash('error', 'Введен неверный логин или пароль')
+
+    res.redirect('/login')
+  })
 }

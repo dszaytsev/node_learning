@@ -1,18 +1,27 @@
+const formidable = require('formidable')
 const db = require('../services/db')
 
-module.exports.post = (req, res) => {
-  const skillData = req.body
-  const values = Object.values(skillData).map(value => parseInt(value))
+module.exports.post = (req, res, next) => {
+  const form = new formidable.IncomingForm()
 
-  if (values.some(value => typeof value !== 'number'))
-    req.flash('msgskill', 'Допускаются только цифры')
-  else {
-    const nextSkills = db.skills().value().map(skill => {
-      return { ...skill, number: req.body[skill.field] || skill.number }
-    })
-    db.skills.set(nextSkills)
-    req.flash('msgskill', 'Успешно сохранено')
-  }
+  form.parse(req, (err, fields) => {
+    if (err) return next(err)
 
-  res.redirect('/admin')
+    const values = Object.values(fields).map(value => parseInt(value))
+
+    if (values.some(value => typeof value !== 'number'))
+      return res.flashRedirect('/admin', 'msgskill', 'Допускаются только цифры')
+
+    updateSkills(fields)
+    res.flashRedirect('/admin', 'msgskill', 'Успешно сохранено')
+  })
+}
+
+const updateSkills = skills => {
+  const nextSKills = db.skills.get().map(skill => {
+    return { ...skill,
+      number: skills[skill.field] || skill.number
+    }
+  })
+  db.skills.set(nextSKills)
 }
