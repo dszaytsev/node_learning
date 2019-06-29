@@ -1,6 +1,27 @@
 {
   "products": [],
-  "skills": [],
+  "skills": [
+    {
+      "field": "age",
+      "number": "5",
+      "text": "Возраст начала занятий на скрипке"
+    },
+    {
+      "field": "concerts",
+      "number": "41",
+      "text": "Концертов отыграл"
+    },
+    {
+      "field": "cities",
+      "number": "30",
+      "text": "Максимальное число городов в туре"
+    },
+    {
+      "field": "years",
+      "number": "20",
+      "text": "Лет на сцене в качестве скрипача"
+    }
+  ],
   "user": {
     "email": "test@mail.com",
     "password": "pasw0rd"
