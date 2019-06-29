@@ -1,7 +1,7 @@
 const db = require('../services/db')
 
 module.exports.get = (req, res) => {
-  res.render('pages/login')
+  res.render('pages/login', { error: req.flash('error')[0] })
 }
 
 module.exports.post = (req, res) => {
@@ -13,6 +13,9 @@ module.exports.post = (req, res) => {
     req.session.isAdmin = true
     return res.redirect('/admin')
   }
+
+  if (!email || !password) req.flash('error', 'Все поля обязательны для заполнения')
+  else req.flash('error', 'Введен неверный логин или пароль')
 
   res.redirect('/login')
 }
