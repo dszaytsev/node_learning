@@ -3,6 +3,7 @@ const express = require('express')
 const homeController = require('../controllers/home')
 const loginController = require('../controllers/login')
 const adminController = require('../controllers/admin')
+const skillsController = require('../controllers/skills')
 
 const isAdmin = (req, res, next) => {
   if (req.session.isAdmin) return next()
@@ -14,6 +15,8 @@ const router = express.Router()
 router.get('/', homeController.get)
 
 router.get('/admin', isAdmin, adminController.get)
+
+router.post('/admin/skills', skillsController.post)
 
 router.get('/login', loginController.get)
 router.post('/login', loginController.post)
