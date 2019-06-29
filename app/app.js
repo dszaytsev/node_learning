@@ -4,6 +4,7 @@ const express = require('express')
 const logger = require('morgan')
 const flash = require('connect-flash')
 const path = require('path')
+const flashRedirect = require('./middleware/flashRedirect')
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use(flash())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(flashRedirect())
 
 app.use('/', require('./routes'))
 
