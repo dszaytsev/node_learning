@@ -2,12 +2,10 @@ const path = require('path')
 const fs = require('fs')
 const generateId = require('../utils').generateID
 
-module.exports = file => {
-  const uploadDir = path.join(process.cwd(), 'app/public/uploads')
+exports.uploadFile = file => {
+  const uploadDir = getUploadDir()
   const fileName = path.join(`${generateId()}${path.extname(file.name)}`)
   const filePath = path.join(uploadDir, fileName)
-
-  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
 
   return new Promise((resolve, reject) => {
     fs.rename(file.path, filePath, err => {
@@ -17,3 +15,12 @@ module.exports = file => {
     })
   })
 }
+
+const getUploadDir = () => {
+  const uploadDir = path.join(process.cwd(), 'app/public/uploads')
+  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
+
+  return uploadDir
+}
+
+exports.getUploadDir = getUploadDir

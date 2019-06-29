@@ -1,7 +1,6 @@
 const formidable = require('formidable')
-const path = require('path')
 const db = require('../services/db')
-const uploadfile = require('../services/uploadFile')
+const { getUploadDir, uploadFile } = require('../services/uploadFile')
 
 module.exports.get = (req, res) => {
   res.render('pages/admin', {
@@ -14,7 +13,7 @@ module.exports.get = (req, res) => {
 module.exports.upload = (req, res, next) => {
   const form = new formidable.IncomingForm()
 
-  form.uploadDir = path.join(process.cwd(), 'app/public/uploads')
+  form.uploadDir = getUploadDir()
 
   form.parse(req, async (err, fields, files) => {
     if (err) return next(err)
@@ -27,7 +26,7 @@ module.exports.upload = (req, res, next) => {
       return res.flashRedirect('/admin', 'msgFile', 'Файл не прикреплен')
 
     try {
-      const src = await uploadfile(files.photo)
+      const src = await uploadFile(files.photo)
       db.products.add({ src, name, price })
     } catch (err) {
       return next(err)
