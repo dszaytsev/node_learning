@@ -15,7 +15,7 @@ db.defaults({
 Object.keys(db.getState()).map(collection => {
   db[collection] = () => db.get(collection)
   db[collection].get = () => db.get(collection).value()
-  db[collection].push = value => db[collection].push(value).write()
+  db[collection].add = value => db[collection]().push(value).write()
   db[collection].set = value => db.set(collection, value).write()
 })
 
