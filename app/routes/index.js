@@ -1,25 +1,19 @@
-const express = require('express')
+const router = require('express').Router()
 
-const homeController = require('../controllers/home')
-const loginController = require('../controllers/login')
-const adminController = require('../controllers/admin')
-const skillsController = require('../controllers/skills')
+const admin = require('./admin')
+const home = require('./home')
+const login = require('./login')
 
 const isAdmin = (req, res, next) => {
   if (req.session.isAdmin) return next()
 
+  return next()
   res.redirect('/404')
 }
 
-const router = express.Router()
-router.get('/', homeController.get)
-
-router.get('/admin', isAdmin, adminController.get)
-
-router.post('/admin/skills', skillsController.post)
-
-router.get('/login', loginController.get)
-router.post('/login', loginController.post)
+router.use('/', home)
+router.use('/admin', isAdmin, admin)
+router.use('/login', login)
 
 router.get('/404', (_, res) => res.render('pages/404'))
 
