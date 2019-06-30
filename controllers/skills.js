@@ -10,10 +10,10 @@ module.exports.post = (req, res, next) => {
     const values = Object.values(fields).map(value => parseInt(value))
 
     if (values.some(value => typeof value !== 'number'))
-      return res.flashRedirect('/admin', 'msgskill', 'Допускаются только цифры')
+      return res.flashRedirect('/admin', 'msgSkill', 'Допускаются только цифры')
 
     updateSkills(fields)
-    res.flashRedirect('/admin', 'msgskill', 'Успешно сохранено')
+    res.flashRedirect('/admin', 'msgSkill', 'Успешно сохранено')
   })
 }
 

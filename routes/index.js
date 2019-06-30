@@ -7,7 +7,6 @@ const login = require('./login')
 const isAdmin = (req, res, next) => {
   if (req.session.isAdmin) return next()
 
-  return next()
   res.redirect('/404')
 }
 
