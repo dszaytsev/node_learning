@@ -1,7 +1,7 @@
 const db = require('../services/db')
 const uploadFile = require('../services/uploadFile')
 
-exports.get = (ctx, next) => {
+exports.get = ctx => {
   ctx.render('admin', {
     skills: processSkills(),
     msgSkill: ctx.flash('msgSkill')[0],
@@ -9,7 +9,7 @@ exports.get = (ctx, next) => {
   })
 }
 
-exports.upload = async (ctx, next) => {
+exports.upload = async ctx => {
   const { name, price } = ctx.request.body
   const photo = ctx.request.files.photo
 
@@ -36,7 +36,7 @@ const processSkills = () => {
   }, {})
 }
 
-const  validateForm = ({ name, photo, price }) => {
+const validateForm = ({ name, photo, price }) => {
   if (!name || !price) return 'Все поля обязательны для заполнения'
   if (!photo) return 'Файл не прикреплен'
 }

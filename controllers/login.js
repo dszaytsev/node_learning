@@ -1,12 +1,12 @@
 const db = require('../services/db')
 
-exports.get = (ctx, next) => {
+exports.get = ctx => {
   if (ctx.session.isAdmin) return ctx.redirect('/admin')
 
   ctx.render('login', { error: ctx.flash('error')[0] })
 }
 
-exports.post = (ctx, next) => {
+exports.post = ctx => {
   const { email, password } = ctx.request.body
 
   const userExists = db.user().isEqual({ email, password }).value()

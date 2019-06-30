@@ -7,8 +7,9 @@ module.exports = async (ctx, next) => {
     else {
       ctx.status = err.status || 500
       ctx.render('error', {
-        message: 'msg',
-        err: err
+        status: err.status,
+        message: err.message,
+        stack: err.stack
       })
     }
   }

@@ -1,6 +1,6 @@
 const db = require('../services/db')
 
-exports.post = (ctx, next) => {
+exports.post = ctx => {
   const fields = ctx.request.body
 
   updateSkills(fields)

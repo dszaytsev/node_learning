@@ -9,8 +9,6 @@ router.use('/', home.routes())
 router.use('/admin', isAdmin, admin.routes())
 router.use('/login', login.routes())
 
-router.get('/404', (ctx, next) => {
-  ctx.render('404')
-})
+router.get('/404', ctx => ctx.render('404'))
 
 module.exports = router
