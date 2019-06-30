@@ -21,5 +21,11 @@
     },
     "saveUninitialized": false,
     "resave": false
+  },
+  "pug": {
+    "viewPath": "./views/pages",
+    "basedir": "./views",
+    "pretty": true,
+    "noCache": true
   }
 }

@@ -1,5 +1,6 @@
 const login = new require('koa-router')()
+const loginController = require('../controllers/login')
 
-login.get('/', (ctx, body) => { ctx.body = 'Login page' })
+login.get('/', loginController.get)
 
 module.exports = login
