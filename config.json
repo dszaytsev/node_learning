@@ -11,21 +11,28 @@
       }
     }
   },
+
   "session": {
-    "secret": "wkcxiyw3ld9t01udlnvjw",
-    "key": "sessionkey",
-    "cookie": {
-      "path": "/",
-      "httpOnly": true,
-      "maxAge": 600000
-    },
-    "saveUninitialized": false,
-    "resave": false
+    "key": "koa:sess",
+    "maxAge": "session",
+    "overwrite": true,
+    "httpOnly": true,
+    "signed": false,
+    "rolling": false,
+    "renew": false
   },
+
   "pug": {
     "viewPath": "./views/pages",
     "basedir": "./views",
     "pretty": true,
     "noCache": true
+  },
+
+  "bodyParser": {
+    "formidable": {
+      "uploadDir": "./public/uploads"
+    },
+    "multipart": true
   }
 }
