@@ -17,7 +17,7 @@ app.use(require('koa-body')(config.bodyParser))
 app.use(require('koa-session')(config.session, app))
 
 // flash messages
-app.use(require('koa-flash-simple')())
+app.use(require('koa-better-flash')())
 
 // include static
 app.use(require('koa-static')('./public'))
