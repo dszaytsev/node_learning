@@ -44,11 +44,6 @@
       "src": "./assets/img/products/Work9.jpg",
       "name": "Вино вдохновение",
       "price": 600
-    },
-    {
-      "src": "uploads/d488d4872d23042cfe1bcd1efdbd245e.jpeg",
-      "name": "photo name",
-      "price": "234"
     }
   ],
   "skills": [

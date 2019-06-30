@@ -1,5 +1,5 @@
-module.exports = (ctx, next) => {
+module.exports = async (ctx, next) => {
   if (!ctx.session.isAdmin) ctx.throw(404)
 
-  next()
+  await next()
 }
