@@ -1,7 +1,9 @@
 const admin = new require('koa-router')()
 const adminController = require('../controllers/admin')
-const isAdmin = require('../middleware/isAdmin')
+const skillsController = require('../controllers/skills')
 
-admin.get('/', isAdmin, adminController.get)
+admin.get('/', adminController.get)
+admin.post('/upload', adminController.upload)
+admin.post('/skills', skillsController.post)
 
 module.exports = admin
