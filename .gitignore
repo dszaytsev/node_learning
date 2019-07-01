@@ -34,10 +34,7 @@ Thumbs.db
 bower_components
 dist
 build
-public/uploads
 
 # Node.JS
 node_modules
 npm-debug.log
-
-config.json

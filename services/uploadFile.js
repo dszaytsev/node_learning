@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const generateId = require('../utils').generateID
 
-exports.uploadFile = file => {
+const uploadFile = file => {
   const uploadDir = getUploadDir()
   const fileName = path.join(`${generateId()}${path.extname(file.name)}`)
   const filePath = path.join(uploadDir, fileName)
@@ -23,4 +23,4 @@ const getUploadDir = () => {
   return uploadDir
 }
 
-exports.getUploadDir = getUploadDir
+module.exports = uploadFile
